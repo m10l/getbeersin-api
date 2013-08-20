@@ -1,15 +1,14 @@
 Get the Beers In API
 ====================
 
-A Node / MongoDB powered API for keeping track of our beer dickery.
+A Node.js / MongoDB powered API for keeping track of our beer dickery.
 
 **Prerequisites**
 
-* Node http://nodejs.org/
+* Node.js http://nodejs.org/
 
 **How to Run**
 
-1. Install dependencies # npm install
-2. # npm install mongodb 
-3. # mongod
-4. # node api.js
+1. Install dependencies - ``` npm install ```
+3. Start MongoDB instance - ``` mongod ```
+4. Start Node.js server - ``` node api.js ```
