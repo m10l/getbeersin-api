@@ -9,6 +9,7 @@ A Node / MongoDB powered API for keeping track of our beer dickery.
 
 **How to Run**
 
-1. # npm install
-2. # mongod
-3. # node api.js
+1. Install dependencies # npm install
+2. # npm install mongodb 
+3. # mongod
+4. # node api.js
