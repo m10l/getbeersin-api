@@ -4,6 +4,7 @@
   "description": "A Node / Express powered RESTful API for Get the Beers In",
   "author": "Mike Mitchell",
   "dependencies": {
-     "express": "3.x"
+     "express": "3.x",
+     "mongodb": ""
    }
 }
