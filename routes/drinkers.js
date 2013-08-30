@@ -17,9 +17,11 @@ db = new Db( 'drinkerdb', server, { w : 1 }, { safe : true } );
 
 db.open( function( error, db){
 
+	// populateDB();
+
 	if( !error ){
 
-		console.log('Connected to \'drinker\' database' );
+		console.log('Connected to Drinker DB' );
 
 		db.collection( 'drinkers', { strict:true }, function( error, collection ){
 
@@ -57,6 +59,8 @@ exports.findById = function( request, response ){
 
 exports.findAll = function( request, response ){
 
+	console.log( 'Listing All Drinkers' );
+
 	db.collection( 'drinkers', function( error, collection ){
 		collection.find().toArray( function( error, items ){
 			response.send( items );
@@ -89,9 +93,9 @@ exports.addDrinker = function( request, response ){
 
 };
 
-//	============================
-//	API Method: Update a Drinker
-//	============================
+//	==========================================
+//	API Method: Update a Drinker - Add a Round
+//	==========================================
 
 exports.updateDrinker = function( request, response ){
 
@@ -102,7 +106,7 @@ exports.updateDrinker = function( request, response ){
 	console.log( JSON.stringify( drinker ) );
 
 	db.collection( 'drinkers', function( error, collection ){
-		collection.update( { '_id' : new BSON.ObjectID( id ) }, drinker, { safe : true }, function( error, result ){
+		collection.update( { '_id' : new BSON.ObjectID( id ) }, { $push: drinker }, { safe : true }, function( error, result ){
 
 			if( error ){
 				console.log( 'Error updating drinker: ' + error );
@@ -141,6 +145,22 @@ exports.deleteDrinker = function( request, response ) {
 
 };
 
+//	==========================
+//	API Method: Get All Rounds
+//	==========================
+
+exports.findAllRounds = function( request, response ){
+
+	console.log( 'Listing All Rounds' );
+
+	db.collection( 'drinkers', function( error, collection ){
+		collection.find( {}, { rounds: true } ).toArray( function( error, items ){
+			response.send( items );
+		});
+	});
+
+};
+
 //	============================================================
 //	FUNCTION FOR POPULATING DATABASE - RUN ONCE THEN COMMENT OUT
 //	============================================================
@@ -150,19 +170,84 @@ var populateDB = function() {
 	var drinkers = [
 
 		{
-			name: 'Dan'
+			name: 'Mike',
+			rounds: [
+				{
+					date: 'Date of Round',
+					drinks: [
+						{
+							brewery: {
+								name : 'The Brewery',
+								location: 'Google Maps Co-ords',
+								image: 'URL to brewery logo - from Untappd API'
+							},
+							name: 'Name of Beer',
+							style: 'Style of beer',
+							image: 'URL to beer image - from Untappd API'
+						}
+					]
+				}
+			]
 		},
 		{
-			name: 'Mike'
+			name: 'Nathan',
+			rounds: [
+				{
+					date: 'Date of Round',
+					drinks: [
+						{
+							brewery: {
+								name : 'The Brewery',
+								location: 'Google Maps Co-ords',
+								image: 'URL to brewery logo - from Untappd API'
+							},
+							name: 'Name of Beer',
+							style: 'Style of beer',
+							image: 'URL to beer image - from Untappd API'
+						}
+					]
+				}
+			]
 		},
 		{
-			name: 'Nathan'
+			name: 'Paul',
+			rounds: [
+				{
+					date: 'Date of Round',
+					drinks: [
+						{
+							brewery: {
+								name : 'The Brewery',
+								location: 'Google Maps Co-ords',
+								image: 'URL to brewery logo - from Untappd API'
+							},
+							name: 'Name of Beer',
+							style: 'Style of beer',
+							image: 'URL to beer image - from Untappd API'
+						}
+					]
+				}
+			]
 		},
 		{
-			name: 'Paul'
-		},
-		{
-			name: 'Rob'
+			name: 'Rob',
+			rounds: [
+				{
+					date: 'Date of Round',
+					drinks: [
+						{
+							brewery: {
+								name : 'The Brewery',
+								location: 'Google Maps Co-ords',
+								image: 'URL to brewery logo - from Untappd API'
+							},
+							name: 'Name of Beer',
+							style: 'Style of beer',
+							image: 'URL to beer image - from Untappd API'
+						}
+					]
+				}
+			]
 		}
 
 	];

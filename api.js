@@ -13,17 +13,33 @@ api.configure( function(){
 	api.use( express.bodyParser()) ;
 });
 
-// API Methods
+// API Routes
 
-// Get the full JSON
+// Cross Domain Access for our front end
+api.all('/*', function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,HEAD,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'content-Type,x-requested-with');
+	next();
+});
+
+// DRINKERS
+// ========
+
+// Get all Drinkers
 api.get( '/drinkers', drinkers.findAll );
 
-// Get by specific ID
-api.get( '/drinkers/:id', drinkers.findById );
+// Get Drinker by Specific ID
+api.get( '/drinker/:id', drinkers.findById );
 
-api.post( '/drinkers', drinkers.addDrinker );
-api.put( '/drinkers/:id', drinkers.updateDrinker );
-api.delete( '/drinkers/:id', drinkers.deleteDrinker );
+// Add New Drinker
+api.post( '/drinker', drinkers.addDrinker );
+
+// Update Drinker by Specific ID
+api.put( '/drinker/:id', drinkers.updateDrinker );
+
+// Delete Drinker by Specific ID
+api.delete( '/drinker/:id', drinkers.deleteDrinker );
 
 // Listen on port 1337
 api.listen( 1337 );
